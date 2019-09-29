@@ -69,33 +69,66 @@ module.exports = class extends Generator {
   writing() {
     const { library } = this.props;
 
+    this.destinationRoot(library);
+
     this.fs.copy(
       this.templatePath("benchmark"),
-      this.destinationPath(`${library}/benchmark`)
+      this.destinationPath(`benchmark`)
+    );
+
+    this.fs.copy(this.templatePath("src"), this.destinationPath("src"));
+
+    this.fs.copy(this.templatePath("test"), this.destinationPath("test"));
+
+    this.fs.copy(
+      this.templatePath(".babelrc"),
+      this.destinationPath(".babelrc")
     );
 
     this.fs.copy(
-      this.templatePath("src"),
-      this.destinationPath(`${library}/src`)
+      this.templatePath(".codeclimate.yml"),
+      this.destinationPath(".codeclimate.yml")
     );
 
     this.fs.copy(
-      this.templatePath("test"),
-      this.destinationPath(`${library}/test`)
+      this.templatePath(".eslintignore"),
+      this.destinationPath(".eslintignore")
     );
 
     this.fs.copy(
-      this.templatePath("LICENSE"),
-      this.destinationPath(`${library}/LICENSE`)
+      this.templatePath(".eslintrc"),
+      this.destinationPath(".eslintrc")
     );
+
+    this.fs.copy(
+      this.templatePath(".gitignore"),
+      this.destinationPath(".gitignore")
+    );
+
+    this.fs.copy(
+      this.templatePath(".npmignore"),
+      this.destinationPath(".npmignore")
+    );
+
+    this.fs.copy(
+      this.templatePath(".travis.yml"),
+      this.destinationPath(".travis.yml")
+    );
+
+    this.fs.copy(
+      this.templatePath(".yo-rc.json"),
+      this.destinationPath(".yo-rc.json")
+    );
+
+    this.fs.copy(this.templatePath("LICENSE"), this.destinationPath("LICENSE"));
 
     this.fs.write(
-      this.destinationPath(`${library}/package.json`),
+      this.destinationPath("package.json"),
       templateEngine(this.templatePath("package.json"), this.props)
     );
 
     this.fs.write(
-      this.destinationPath(`${library}/README.md`),
+      this.destinationPath("README.md"),
       templateEngine(this.templatePath("README.md"), this.props)
     );
   }
